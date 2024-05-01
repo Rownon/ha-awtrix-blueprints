@@ -128,7 +128,7 @@ action:
       payload: |-
         {
           "pos": {{pos}},
-          "text": "{{ msg_text }} {{ states(monitored_entity) | float / 1000 | round(1) }} {{ monitored_entity_unit }}",
+          "text": "{{ msg_text }} {{ (states(monitored_entity) | float / 1000) | round(1) }} {{ monitored_entity_unit }}",
           "color": {{text_color}},
           "background": {{ background_color }},
           "icon": "{{ msg_icon }}",
