@@ -27,13 +27,13 @@ blueprint:
         entity:
           multiple: false
     monitored_entity_divider:
-      name: Divider for monitored_entity
+      name: Divider field
       description: Divider for monitored_entity
-      defaut: 1
       selector:
         number:
           min: 1
           max: 1000
+      defaut: 1
     monitored_entity_unit:
       name: Unit field
       description: Unit of Input to monitor/display on app
