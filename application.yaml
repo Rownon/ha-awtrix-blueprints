@@ -121,7 +121,7 @@ variables:
   appname: !input appname
   monitored_entity: !input monitored_entity
   monitored_entity_unit: !input monitored_entity_unit
-  monitored_entity_divider: !input monitored_entity_divider
+  monitored_entity_divider: {{ !input monitored_entity_divider | int }}
 action:
   - service: mqtt.publish
     data:
