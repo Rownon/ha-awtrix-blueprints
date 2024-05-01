@@ -26,10 +26,13 @@ blueprint:
       selector:
         entity:
           multiple: false
+    monitored_entity_divider:
+      name: Divider for monitored_entity
+      description: Divider for monitored_entity
+      defaut: 0
     monitored_entity_unit:
       name: Unit field
       description: Unit of Input to monitor/display on app
-      default: "kW"
     text:
       name: Text you want to display on the device
       default: "Text"
@@ -119,6 +122,7 @@ variables:
   appname: !input appname
   monitored_entity: !input monitored_entity
   monitored_entity_unit: !input monitored_entity_unit
+  monitored_entity_divider: !monitored_entity_divider
 action:
   - service: mqtt.publish
     data:
@@ -128,7 +132,7 @@ action:
       payload: |-
         {
           "pos": {{pos}},
-          "text": "{{ msg_text }} {{ (states(monitored_entity) | float / 1000) | round(1) }} {{ monitored_entity_unit }}",
+          "text": "{{ msg_text }} {{ (states(monitored_entity) | float / monitored_entity_divider) | round(1) }} {{ monitored_entity_unit }}",
           "color": {{text_color}},
           "background": {{ background_color }},
           "icon": "{{ msg_icon }}",
