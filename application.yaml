@@ -26,6 +26,10 @@ blueprint:
       selector:
         entity:
           multiple: false
+    monitored_entity_filter:
+      name: Filter field
+      description: Filter applied to Input to monitor/display on app
+      default: "round(0)"
     text:
       name: Text you want to display on the device
       default: "Text"
@@ -114,6 +118,7 @@ variables:
   pos: !input position
   appname: !input appname
   monitored_entity: !input monitored_entity
+  monitored_entity_filter: !input monitored_entity_filter
 action:
   - service: mqtt.publish
     data:
@@ -123,7 +128,7 @@ action:
       payload: |-
         {
           "pos": {{pos}},
-          "text": "{{ msg_text }} {{ states(monitored_entity, with_unit=True) }}",
+          "text": "{{ msg_text }}{{ states(monitored_entity)|monitored_entity_filter) }} {{ state_attr(monitored_entity, 'unit_of_measurement') }}",
           "color": {{text_color}},
           "background": {{ background_color }},
           "icon": "{{ msg_icon }}",
