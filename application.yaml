@@ -34,7 +34,7 @@ blueprint:
       description: Unit of Input to monitor/display on app
     text:
       name: Text you want to display on the device
-      default: "Text"
+      default: ""
     push_icon:
       name: Push Icon
       description: Icon behavior
@@ -121,7 +121,9 @@ variables:
   appname: !input appname
   monitored_entity: !input monitored_entity
   monitored_entity_unit: !input monitored_entity_unit
-  monitored_entity_divider: {{ !input monitored_entity_divider | int }}
+  monitored_entity_divider: !input monitored_entity_divider
+  monitored_entity_divider_int: |
+    {{ monitored_entity_divider | int }}
 action:
   - service: mqtt.publish
     data:
@@ -131,7 +133,7 @@ action:
       payload: |-
         {
           "pos": {{pos}},
-          "text": "{{ msg_text }} {{ (states(monitored_entity) | float / 1000) | round(1) }} {{ monitored_entity_unit }}",
+          "text": "{{ msg_text }}{{ (states(monitored_entity) | float / monitored_entity_divider_int) | round(1) }} {{ monitored_entity_unit }}",
           "color": {{text_color}},
           "background": {{ background_color }},
           "icon": "{{ msg_icon }}",
