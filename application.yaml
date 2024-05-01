@@ -30,6 +30,10 @@ blueprint:
       name: Divider for monitored_entity
       description: Divider for monitored_entity
       defaut: 1
+      selector:
+        number:
+          min: 1
+          max: 1000
     monitored_entity_unit:
       name: Unit field
       description: Unit of Input to monitor/display on app
