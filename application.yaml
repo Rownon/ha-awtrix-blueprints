@@ -29,7 +29,7 @@ blueprint:
     monitored_entity_divider:
       name: Divider for monitored_entity
       description: Divider for monitored_entity
-      defaut: 0
+      defaut: 1
     monitored_entity_unit:
       name: Unit field
       description: Unit of Input to monitor/display on app
@@ -122,7 +122,7 @@ variables:
   appname: !input appname
   monitored_entity: !input monitored_entity
   monitored_entity_unit: !input monitored_entity_unit
-  monitored_entity_divider: !monitored_entity_divider
+  monitored_entity_divider: !input monitored_entity_divider
 action:
   - service: mqtt.publish
     data:
