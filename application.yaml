@@ -26,10 +26,10 @@ blueprint:
       selector:
         entity:
           multiple: false
-    monitored_entity_filter:
-      name: Round Filter field
-      description: Round Filter Value applied to Input to monitor/display on app
-      default: 0
+    monitored_entity_unit:
+      name: Unit field
+      description: Unit of Input to monitor/display on app
+      default: "kW"
     text:
       name: Text you want to display on the device
       default: "Text"
@@ -118,7 +118,7 @@ variables:
   pos: !input position
   appname: !input appname
   monitored_entity: !input monitored_entity
-  monitored_entity_filter: !input monitored_entity_filter
+  monitored_entity_unit: !input monitored_entity_unit
 action:
   - service: mqtt.publish
     data:
@@ -128,7 +128,7 @@ action:
       payload: |-
         {
           "pos": {{pos}},
-          "text": "{{ msg_text }} {{ states(monitored_entity) }}",
+          "text": "{{ msg_text }} {{ states(monitored_entity) / 1000 | round(1) }} {{ monitored_entity_unit }}",
           "color": {{text_color}},
           "background": {{ background_color }},
           "icon": "{{ msg_icon }}",
