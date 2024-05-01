@@ -128,7 +128,7 @@ action:
       payload: |-
         {
           "pos": {{pos}},
-          "text": "{{ msg_text }}{{ states(monitored_entity) }} {{ state_attr(monitored_entity, 'unit_of_measurement') }}",
+          "text": "{{ msg_text }} {{ states(monitored_entity) }}",
           "color": {{text_color}},
           "background": {{ background_color }},
           "icon": "{{ msg_icon }}",
